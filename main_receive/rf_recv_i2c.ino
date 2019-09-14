@@ -18,9 +18,14 @@ void i2c_setup() {
 
 byte x = 0;
 
-void i2c_loop() {
+void i2c_send(String data) {
   Wire.beginTransmission(8); // transmit to device #8
-  Wire.write("140073009");   // sends five bytes
+//  String J1X = "0750";
+//  String J1Y = "0873";
+//  String J2X = "0200";
+//  String J2Y = "1005";
+//  String data = J1Y + J1X + J2Y + J2X;
+  Wire.write(data.c_str());   // sends five bytes
   Wire.endTransmission();    // stop transmitting
 
   delay(500);

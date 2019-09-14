@@ -32,22 +32,22 @@ RH_ASK driver(txSpeed, rxPin, txPin, pttPin);
 
 void setup()
 {  
+  Serial.begin(9600);
   i2c_setup();
-//  if (!driver.init())
-//    Serial.println("init failed");
-//  else
-//    Serial.println("init success");
+  if (!driver.init())
+    Serial.println("init failed");
+  else
+    Serial.println("init success");
 }
 
 void loop()
 {
-//  uint8_t buf[RH_ASK_MAX_MESSAGE_LEN] = {0};
-//  uint8_t buflen = sizeof(buf);
-//
-//  if (driver.recv(buf, &buflen)) // if message received, save it
-//  {
-//    Serial.println((char*)buf); // print received message
-//    i2c_loop();
-//  }
-  i2c_loop();
+  uint8_t buf[RH_ASK_MAX_MESSAGE_LEN] = {0};
+  uint8_t buflen = sizeof(buf);
+
+  if (driver.recv(buf, &buflen)) // if message received, save it
+  {
+    Serial.println((char*)buf); // print received message
+    i2c_send((char*)buf);
+  }
 }

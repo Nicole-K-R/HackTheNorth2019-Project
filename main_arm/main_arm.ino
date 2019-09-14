@@ -22,16 +22,28 @@ void setup() {
 
 void loop() {
   delay(100);
-  servo_loop();
 }
 
 // function that executes whenever data is received from master
 // this function is registered as an event, see setup()
 void receiveEvent(int howMany) {
-  while (1 < Wire.available()) { // loop through all but the last
+  String data = "";
+  while (0 < Wire.available()) { // loop through all but the last
     char c = Wire.read(); // receive byte as a character
-    Serial.print(c);         // print the character
+    data += c;
+//    Serial.print(c);         // print the character
   }
-  int x = Wire.read();    // receive byte as an integer
-  Serial.println(x);         // print the integer
+//  Serial.println("");
+ 
+  Serial.println(data);
+  int y1 = data.substring(0,4).toInt();
+  int x1 = data.substring(4,8).toInt();
+  int y2 = data.substring(8,12).toInt();
+  int x2 = data.substring(12,16).toInt();
+  Serial.println(y1);
+  Serial.println(x1);
+  Serial.println(y2);
+  Serial.println(x2);
+
+  servo_position(x1, y1, x2, y2);
 }
